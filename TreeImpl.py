@@ -1,3 +1,4 @@
+import Tree
 
 def preOrder(root):
     if root is None:
@@ -46,3 +47,33 @@ def getHeight(root):
         return -1
     else:
         return max(getHeight(root.left), getHeight(root.right)) + 1
+
+def LevelOrder(root):
+    result = []
+    if root is None:
+        return result
+    result.append(root.data)
+    def LevelOrderHelper(root):
+        # if root is None:
+        #     return
+        root.left and result.append(root.left.data)
+        root.right and result.append(root.right.data)
+        root.left and LevelOrderHelper(root.left)
+        root.right and LevelOrderHelper(root.right)
+    LevelOrderHelper(root)
+    return result
+
+def BST_Insert(root, value):
+    if root is None:
+        return Tree.TreeNode(data=value)
+    if value < root.data:
+        if root.left is None:
+            root.left = Tree.TreeNode(data=value)
+        else:
+            BST_Insert(root.left, value)
+    else:
+        if root.right is None:
+            root.right = Tree.TreeNode(data=value)
+        else:
+            BST_Insert(root.right, value)
+    return root
